@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Billz</string>
+    <string name="username">Username</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="email_address">Email Address</string>
+    <string name="submit">Submit</string>
+</resources>
