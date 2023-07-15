@@ -1,70 +1,63 @@
 package com.collections.billz
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
 import com.collections.billz.databinding.ActivityMainBinding
+import com.collections.billz.databinding.ActivitySignupBinding
 
 class Signup : AppCompatActivity() {
-    lateinit var binding = ActivityMainBinding
+    lateinit var binding: ActivitySignupBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(layoutInflater.inflate(ActivityMainBinding))
+        super.onCreate(savedInstanceState)
+        binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 
     override fun onResume() {
         super.onResume()
+
+        binding.btLogin.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
         validateSignUp()
-clearErrorOnType()
+        clearErrorOnType()
     }
-}
+
 
 
 fun validateSignUp() {
 
-    val username = binding.etUsername.text.toString()
-    val phone = binding.etPhonenumber.text.toString()
-    val email = binding.etEmail.text.toString()
-    val password = binding.etPassword.text.toString()
+    val username = binding.etUsername1.text.toString()
+    val password = binding.etPassword1.text.toString()
     var error = false
 
     if (username.isBlank()) {
-        binding.etUsername.error = "Username is required"
+        binding.etUsername1.error = "Username is required"
         error = true
     } else {
-        binding.tilUsername.error = null
+        binding.tilUsername1.error = null
     }
 
-    if (email.isBlank()) {
-        binding.etemail.error = "Email is required"
-        error = true
-    }
-    else {
-        binding.tilEmail.error = null
-    }
-
-    if (phone.isEmpty()) {
-        binding.etPhonenumber.error = "Phone Number is required"
-        error = true
-    } else {
-        binding.tilPhonenumber.error = null
-    }
     if (password.isBlank()) {
-        binding.etPassword.error = "Password is required"
+        binding.etPassword1.error = "Password is required"
         error = true
     }
     else {
-        binding.tilPassword.error = null
+        binding.tilPassword1.error = null
     }
     if (!error) {
-        Toast.makeText(this, "$username $email $phone", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "$username ", Toast.LENGTH_LONG).show()
     }
 }
 
 fun clearErrorOnType() {
-    binding.tilUsername.editText?.addTextChangedListener(object : TextWatcher {
+    binding.tilUsername1.editText?.addTextChangedListener(object : TextWatcher {
         override fun beforeTextChanged(
             s: CharSequence?,
             start: Int,
@@ -75,7 +68,7 @@ fun clearErrorOnType() {
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            binding.tilUsername.error = null
+            binding.tilUsername1.error = null
         }
 
         override fun afterTextChanged(s: Editable?) {
@@ -83,44 +76,9 @@ fun clearErrorOnType() {
         }
     })
 
-
-
-    binding.tilPhonenumber.editText?.addTextChangedListener(object : TextWatcher {
-        override fun beforeTextChanged(
-            s: CharSequence?,
-            start: Int,
-            count: Int,
-            after: Int
-        ) {
-
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            binding.tilphonenumber.error = null
-        }
-
-        override fun afterTextChanged(s: Editable?) {
-
-        }
-    })
-
-    binding.tilemail.editText?.addTextChangedListener(object : TextWatcher {
-        override fun beforeTextChanged(
-            s: CharSequence?,
-            start: Int,
-            count: Int,
-            after: Int
-        ) {
-
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            binding.tilEmail.error = null
-        }
-
-        override fun afterTextChanged(s: Editable?) {
-        }
-    })
 }
 }
+
+
+
 
