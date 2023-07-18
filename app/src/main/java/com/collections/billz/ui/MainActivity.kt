@@ -1,16 +1,21 @@
-package com.collections.billz
+package com.collections.billz.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
+import com.collections.billz.Signup
 import com.collections.billz.databinding.ActivityMainBinding
+import com.collections.billz.models.RegisterRequest
+import com.collections.billz.viewmodel.UserViewModel
 
 class MainActivity : AppCompatActivity() {
         lateinit var binding: ActivityMainBinding
-
+        val userViewModel : UserViewModel by viewModels()
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             binding= ActivityMainBinding.inflate(layoutInflater)
@@ -20,30 +25,54 @@ class MainActivity : AppCompatActivity() {
         override fun onResume() {
             super.onResume()
 //            displayContacts()
-
             binding.btSubmit.setOnClickListener {
-                val intent = Intent(this, Signup::class.java)
-                startActivity(intent)
+                validateSignUp()
+                clearErrorOnType()
             }
 
-            validateSignUp()
-            clearErrorOnType()
+            userViewModel.regLiveData.observe(this) { regResponse ->
+                Toast.makeText(this, regResponse.message, Toast.LENGTH_LONG).show()
+                startActivity(Intent(this, Signup::class.java))
+                binding.pbProgressbar.visibility = View.GONE
+            }
+
+            userViewModel.errorLiveData.observe(
+                this
+            ) { err ->
+                Toast.makeText(this, err, Toast.LENGTH_LONG).show()
+                binding.pbProgressbar.visibility = View.GONE
+            }
+
+            binding.tvLogin.setOnClickListener{
+                startActivity(Intent(this, Signup::class.java))
+            }
+
         }
 
 
     fun validateSignUp() {
 
-        val username = binding.etUsername.text.toString()
+        val firstName = binding.etFirstname.text.toString()
+        val lastName = binding.etLastname.text.toString()
         val phone = binding.etPhonenumber.text.toString()
         val email = binding.etEmail.text.toString()
         val password = binding.etPassword.text.toString()
+
+        val passwordConf = binding.etPasswordconf.text.toString()
+
         var error = false
 
-        if (username.isBlank()) {
-            binding.etUsername.error = "Username is required"
+        if (firstName.isBlank()) {
+            binding.etFirstname.error = "First name is required"
             error = true
         } else {
-            binding.tilUsername.error = null
+            binding.tilFirstname.error = null
+        }
+        if (lastName.isBlank()) {
+            binding.etLastname.error = "First name is required"
+            error = true
+        } else {
+            binding.tilLastname.error = null
         }
 
         if (email.isBlank()) {
@@ -68,12 +97,29 @@ class MainActivity : AppCompatActivity() {
             binding.tilPassword.error = null
         }
         if (!error) {
-            Toast.makeText(this, "$username $email $phone", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "$firstName $lastName $email $phone", Toast.LENGTH_LONG).show()
         }
-    }
+        if (!password.equals(passwordConf)){
+            error = true
+            binding.tilPasswordConf.error = "Password and confirmation does not match"
+        }
+        if (!error){
+            var registerRequest = RegisterRequest(
+                firstname = firstName,
+                lastname = lastName,
+                email = email,
+                password = password,
+                phoneNumber = phone
+            )
+            binding.pbProgressbar.visibility = View.VISIBLE
+            userViewModel.registerUser(registerRequest)
+        }
 
+
+    }
+//clear all errors once i have sign up
     fun clearErrorOnType() {
-        binding.tilUsername.editText?.addTextChangedListener(object : TextWatcher {
+        binding.tilFirstname.editText?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(
                 s: CharSequence?,
                 start: Int,
@@ -84,7 +130,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.tilUsername.error = null
+                binding.tilFirstname.error = null
             }
             override fun afterTextChanged(s: Editable?) {
             }
@@ -127,4 +173,4 @@ class MainActivity : AppCompatActivity() {
         })
     }
 }
-
+//add no-error function

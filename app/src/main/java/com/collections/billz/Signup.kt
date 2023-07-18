@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
-import com.collections.billz.databinding.ActivityMainBinding
 import com.collections.billz.databinding.ActivitySignupBinding
+import com.collections.billz.ui.MainActivity
 
 class Signup : AppCompatActivity() {
     lateinit var binding: ActivitySignupBinding

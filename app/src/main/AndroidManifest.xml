@@ -2,8 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.collections.billz">
+<uses-permission android:name="android.permission.INTERNET"/>
+
 
     <application
+        android:usesCleartextTraffic="true"
+
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,11 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Billz"
         tools:targetApi="31">
+
+<!--        .ui.Signup-->
         <activity
             android:name=".Signup"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
