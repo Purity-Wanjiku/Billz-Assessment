@@ -10,15 +10,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 
-class UserRepository {
+class LoginUserRepository {
     var client = ApiClient.buildApiClient(ApiInterface::class.java)
 
-    suspend fun registerUser(registerRequest: RegisterRequest):
-            Response<RegisterResponse>{
-        return withContext(Dispatchers.IO){
-            client.registerUser(registerRequest)
+    suspend fun loginUser(loginRequest: LoginRequest):
+            Response<LoginResponse> {
+        return withContext(Dispatchers.IO) {
+            client.loginUser(loginRequest)
         }
     }
-
-
 }
+
+

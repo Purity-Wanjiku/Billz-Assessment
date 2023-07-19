@@ -4,21 +4,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.collections.billz.models.LoginRequest
-import com.collections.billz.models.RegisterRequest
+import com.collections.billz.models.LoginResponse
 import com.collections.billz.models.RegisterResponse
+import com.collections.billz.repository.LoginUserRepository
 import com.collections.billz.repository.UserRepository
 import kotlinx.coroutines.launch
 
-class UserViewModel : ViewModel() {
-// val regLiveData = mutableListOf<RegisterResponse>()
+class LoginUserViewModel : ViewModel() {
     val errorLiveData = MutableLiveData<String>()
-    val userRepository = UserRepository()
-    val regLiveData = MutableLiveData<RegisterResponse>()
+    val loginuserRepository = LoginUserRepository()
+    val regLiveData = MutableLiveData<LoginResponse>()
     var regError = MutableLiveData<String>()
 
-    fun registerUser ( registerRequest: RegisterRequest){
+    fun loginUser ( loginRequest: LoginRequest){
         viewModelScope.launch{
-            var response = userRepository.registerUser(registerRequest)
+            var response = loginuserRepository.loginUser(loginRequest)
             if (response.isSuccessful){
                 regLiveData.postValue(response.body())
             }
@@ -27,4 +27,5 @@ class UserViewModel : ViewModel() {
             }
         }
     }
+
 }

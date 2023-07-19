@@ -10,12 +10,14 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.collections.billz.HomeActivity
 import com.collections.billz.databinding.ActivitySignupBinding
+import com.collections.billz.models.LoginRequest
 import com.collections.billz.models.RegisterRequest
+import com.collections.billz.viewmodel.LoginUserViewModel
 import com.collections.billz.viewmodel.UserViewModel
 
 class  Signup : AppCompatActivity() {
     lateinit var binding: ActivitySignupBinding
-    val userViewModel : UserViewModel by viewModels()
+    val loginuserViewModel : LoginUserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,14 +33,14 @@ class  Signup : AppCompatActivity() {
             clearErrorOnType()
 
         }
-        userViewModel.regLiveData.observe(this) { regResponse ->
+        loginuserViewModel.regLiveData.observe(this) { regResponse ->
             Toast.makeText(this, regResponse.message, Toast.LENGTH_LONG).show()
-            startActivity(Intent(this, HomeActivity::class.java))
 //            binding.pbProgressbar.visibility = View.GONE
         }
 
-        userViewModel.errorLiveData.observe(this) { err ->
+        loginuserViewModel.errorLiveData.observe(this) { err ->
             Toast.makeText(this, err, Toast.LENGTH_LONG).show()
+            startActivity(Intent(this, HomeActivity::class.java))
 //            binding.pbProgressbar2.visibility = View.GONE
         }
 
@@ -53,7 +55,7 @@ fun validateSignUp() {
     var error = false
 
     if (emailaddress.isBlank()) {
-        binding.etEmail.error = "Username is required"
+        binding.etEmail.error = "Email is required"
         error = true
     } else {
         binding.tilEmail.error = null
@@ -70,12 +72,13 @@ fun validateSignUp() {
         Toast.makeText(this, "$emailaddress ", Toast.LENGTH_LONG).show()
     }
     if (!error){
-        var registerRequest = RegisterRequest(
+        var loginRequest = LoginRequest(
             email = emailaddress,
             password = password
         )
 //        binding.pbProgressbar2.visibility = View.VISIBLE
-        userViewModel.registerUser(registerRequest)
+        loginuserViewModel.loginUser(loginRequest)
+
     }
 }
 

@@ -1,5 +1,7 @@
 package com.collections.billz.api
 
+import com.collections.billz.models.LoginRequest
+import com.collections.billz.models.LoginResponse
 import com.collections.billz.models.RegisterRequest
 import com.collections.billz.models.RegisterResponse
 import retrofit2.Response
@@ -12,5 +14,5 @@ interface ApiInterface {
     suspend fun registerUser(@Body registerRequest: RegisterRequest) : Response<RegisterResponse>
 
     @POST("/users/login")
-    suspend fun loginUser(@Body registerRequest: RegisterRequest) : Response<RegisterResponse>
+    suspend fun loginUser(@Body loginRequest: LoginRequest) : Response<LoginResponse>
 }
