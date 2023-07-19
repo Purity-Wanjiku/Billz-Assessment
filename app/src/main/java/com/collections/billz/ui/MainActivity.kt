@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import com.collections.billz.HomeActivity
 import com.collections.billz.databinding.ActivityMainBinding
 import com.collections.billz.models.RegisterRequest
 import com.collections.billz.viewmodel.UserViewModel
@@ -16,7 +17,8 @@ class MainActivity : AppCompatActivity() {
         lateinit var binding: ActivityMainBinding
         val userViewModel : UserViewModel by viewModels()
         override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
+            super.onCreate(
+                savedInstanceState)
             binding= ActivityMainBinding.inflate(layoutInflater)
             setContentView(binding.root)
         }
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
             userViewModel.regLiveData.observe(this) { regResponse ->
                 Toast.makeText(this, regResponse.message, Toast.LENGTH_LONG).show()
-                startActivity(Intent(this, Signup::class.java))
+                startActivity(Intent(this, HomeActivity::class.java))
                 binding.pbProgressbar.visibility = View.GONE
             }
 
@@ -100,6 +102,10 @@ class MainActivity : AppCompatActivity() {
         }
         if (!error){
             var registerRequest = RegisterRequest(
+
+                phoneNumber = phone,
+                firstName = firstName,
+                lastName = lastName,
                 email = email,
                 password = password
             )
@@ -127,6 +133,23 @@ class MainActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
             }
         })
+
+    binding.tilLastname.editText?.addTextChangedListener(object : TextWatcher {
+        override fun beforeTextChanged(
+            s: CharSequence?,
+            start: Int,
+            count: Int,
+            after: Int
+        ) {
+
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            binding.tilLastname.error = null
+        }
+        override fun afterTextChanged(s: Editable?) {
+        }
+    })
         binding.tilPhonenumber.editText?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(
                 s: CharSequence?,

@@ -19,7 +19,6 @@
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
-        <!-- .ui.Signup -->
         <activity
             android:name=".ui.Signup"
             android:exported="false" />
