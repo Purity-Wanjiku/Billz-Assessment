@@ -8,7 +8,6 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.collections.billz.Signup
 import com.collections.billz.databinding.ActivityMainBinding
 import com.collections.billz.models.RegisterRequest
 import com.collections.billz.viewmodel.UserViewModel
@@ -24,7 +23,6 @@ class MainActivity : AppCompatActivity() {
 
         override fun onResume() {
             super.onResume()
-//            displayContacts()
             binding.btSubmit.setOnClickListener {
                 validateSignUp()
                 clearErrorOnType()
@@ -36,9 +34,7 @@ class MainActivity : AppCompatActivity() {
                 binding.pbProgressbar.visibility = View.GONE
             }
 
-            userViewModel.errorLiveData.observe(
-                this
-            ) { err ->
+            userViewModel.errorLiveData.observe(this) { err ->
                 Toast.makeText(this, err, Toast.LENGTH_LONG).show()
                 binding.pbProgressbar.visibility = View.GONE
             }
@@ -57,7 +53,6 @@ class MainActivity : AppCompatActivity() {
         val phone = binding.etPhonenumber.text.toString()
         val email = binding.etEmail.text.toString()
         val password = binding.etPassword.text.toString()
-
         val passwordConf = binding.etPasswordconf.text.toString()
 
         var error = false
@@ -105,11 +100,8 @@ class MainActivity : AppCompatActivity() {
         }
         if (!error){
             var registerRequest = RegisterRequest(
-                firstname = firstName,
-                lastname = lastName,
                 email = email,
-                password = password,
-                phoneNumber = phone
+                password = password
             )
             binding.pbProgressbar.visibility = View.VISIBLE
             userViewModel.registerUser(registerRequest)

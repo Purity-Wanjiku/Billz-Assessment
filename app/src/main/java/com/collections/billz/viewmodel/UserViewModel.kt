@@ -19,7 +19,7 @@ class UserViewModel : ViewModel() {
         viewModelScope.launch{
             var response = userRepository.registerUser(registerRequest)
             if (response.isSuccessful){
-                regLiveData.postValue((response.body()))
+                regLiveData.postValue(response.body())
             }
             else{
                 errorLiveData.postValue(response.errorBody()?.string())

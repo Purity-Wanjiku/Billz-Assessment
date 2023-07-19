@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Signup">
+    tools:context=".ui.Signup">
 
 
     <ImageView
@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/profileimage" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilUsername1"
+        android:id="@+id/tilEmail"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -28,9 +28,9 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:id="@+id/etUsername1"
+            android:id="@+id/etEmail"
             android:layout_height="wrap_content"
-            android:hint="@string/username" />
+            android:hint="Email Address" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -40,7 +40,7 @@
         android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilUsername1">
+        app:layout_constraintTop_toBottomOf="@+id/tilEmail">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPassword1"
@@ -61,4 +61,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilPassword1" />
+
+    <ProgressBar
+
+        android:id="@+id/pbProgressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
