@@ -1,5 +1,6 @@
 package com.collections.billz.ui
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,9 +9,9 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.collections.billz.HomeActivity
 import com.collections.billz.databinding.ActivityMainBinding
 import com.collections.billz.models.RegisterRequest
+import com.collections.billz.utils.Constants
 import com.collections.billz.viewmodel.UserViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
                 savedInstanceState)
             binding= ActivityMainBinding.inflate(layoutInflater)
             setContentView(binding.root)
+            redirectUser()
         }
 
         override fun onResume() {
@@ -44,9 +46,7 @@ class MainActivity : AppCompatActivity() {
             binding.tvLogin.setOnClickListener{
                 startActivity(Intent(this, Signup::class.java))
             }
-
         }
-
 
     fun validateSignUp() {
 
@@ -186,6 +186,15 @@ class MainActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
             }
         })
+    }
+    fun redirectUser (){
+        val prefs = getSharedPreferences(Constants.PREFS, Context.MODE_PRIVATE)
+        val userId = prefs.getString(Constants.USER_ID, Constants.EMPTY_STRING)!!
+//        null assertion operator, making the empty string to not be nullable but just a string
+
+        if (userId.isNotBlank()){
+            startActivity(Intent(this, MainActivity::class.java))
+        }
     }
 }
 //add no-error function

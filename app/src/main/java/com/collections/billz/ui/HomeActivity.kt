@@ -1,7 +1,8 @@
-package com.collections.billz
+package com.collections.billz.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.collections.billz.R
 
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

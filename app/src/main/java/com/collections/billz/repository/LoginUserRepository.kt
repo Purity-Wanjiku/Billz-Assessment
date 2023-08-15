@@ -13,8 +13,7 @@ import retrofit2.Response
 class LoginUserRepository {
     var client = ApiClient.buildApiClient(ApiInterface::class.java)
 
-    suspend fun loginUser(loginRequest: LoginRequest):
-            Response<LoginResponse> {
+    suspend fun loginUser(loginRequest: LoginRequest): Response<LoginResponse> {
         return withContext(Dispatchers.IO) {
             client.loginUser(loginRequest)
         }
