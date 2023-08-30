@@ -4,26 +4,35 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.GestureDetectorCompat
 import com.collections.billz.databinding.ActivityMainBinding
 import com.collections.billz.models.RegisterRequest
 import com.collections.billz.utils.Constants
 import com.collections.billz.viewmodel.UserViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
         lateinit var binding: ActivityMainBinding
         val userViewModel : UserViewModel by viewModels()
-        override fun onCreate(savedInstanceState: Bundle?) {
+
+      public override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(
                 savedInstanceState)
             binding= ActivityMainBinding.inflate(layoutInflater)
             setContentView(binding.root)
             redirectUser()
+
         }
+
 
         override fun onResume() {
             super.onResume()

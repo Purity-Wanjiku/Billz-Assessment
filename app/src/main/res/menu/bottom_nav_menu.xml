@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<item android:id="@+id/summary"
+    android:title="@string/summaryTxt"
+    android:icon="@drawable/ic_home"
+    android:enabled="true"/>
+
+    <item android:id="@+id/upcoming"
+        android:title="@string/upcomingTxt"
+        android:icon="@drawable/ic_upcoming"
+        android:enabled="true"/>
+
+    <item android:id="@+id/paid"
+        android:title="@string/paidTxt"
+        android:icon="@drawable/ic_payment"
+        android:enabled="true"/>
+
+    <item android:id="@+id/settings"
+        android:title="@string/settingsTxt"
+        android:icon="@drawable/ic_settings"
+        android:enabled="true"/>
+</menu>

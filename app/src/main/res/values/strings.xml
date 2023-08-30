@@ -6,4 +6,16 @@
     <string name="submit">Submit</string>
     <string name="last_name">Last Name</string>
     <string name="first_name">First Name</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings">Settings</string>
+    <string name="summary">Summary</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="hello_there_you_will_be_logged_out_after_15_seconds">Hello there. You will be logged out after 15 seconds</string>
+    <string name="upcomingTxt">Upcoming</string>
+    <string name="paidTxt">Paid</string>
+    <string name="settingsTxt">Settings</string>
+    <string name="summaryTxt">Summary</string>
+    <string name="save">Save</string>
+    <string name="amount">Amount</string>
 </resources>
