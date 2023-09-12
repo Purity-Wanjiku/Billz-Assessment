@@ -1,9 +1,12 @@
 package com.collections.billz.models
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "UpcomingBills")
+@Entity(tableName = "UpcomingBills",
+    indices = [Index(value = ["billId","dueDate"], unique = true)]
+    )
 data class UpcomingBill(
     @PrimaryKey var upcomingBillId : String,
     var billId:String,

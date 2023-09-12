@@ -63,8 +63,7 @@ class BillzRepository {
             val startDate = DateTimeUtils.getFirstDayOfWeek()
             val endDate = DateTimeUtils.getLastDayOfWeek()
             weeklyBills.forEach { bill ->
-                val existing =
-                    upcomingBillsDao.queryExistingBills(bill.billId, startDate, endDate)
+                val existing = upcomingBillsDao.queryExistingBills(bill.billId, startDate, endDate)
                 if (existing.isEmpty()) {
                     val newUpcomingWeeklyBill = UpcomingBill(
                         upcomingBillId = UUID.randomUUID().toString(),
@@ -80,5 +79,36 @@ class BillzRepository {
                 }
             }
         }
+
+        suspend fun createRecurringAnnualBills(){
+            withContext(Dispatchers.IO){
+                val annualBills = billsDao.getRecurringBills(Constants.ANNUAL)
+                val year = DateTimeUtils.getCurrentYear()
+                val startDate = "01//01/$year"
+                val endDate = "31/12/$year"
+
+                annualBills.forEach{ bill ->
+                    val existing = upcomingBillsDao.queryExistingBills(bill.billId, startDate, endDate)
+//                    val existing = upcomingBillsDao.queryExistingBills(bill.billId, startDate, endDate)
+
+                    if (existing.isEmpty()){
+                        val newAnnualBill = UpcomingBill(
+                            upcomingBillId = UUID.randomUUID().toString(),
+                            billId = bill.billId,
+                            name = bill.name,
+                            amount = bill.amount,
+                            frequency = bill.frequency,
+                            dueDate = "${bill.dueDate}/$year",
+                            userId = bill.userId,
+                            paid = false
+                        )
+//                          save the bill
+                      upcomingBillsDao.insertUpcomingBills(newAnnualBill)
+
+                    }
+                }
+            }
+        }
+
     }
 }

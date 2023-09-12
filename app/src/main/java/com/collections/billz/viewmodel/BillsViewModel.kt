@@ -19,6 +19,7 @@ class BillsViewModel:ViewModel() {
         viewModelScope.launch {
            billsRepository.createRecurringWeeklyBills()
             billsRepository.createRecurringMonthlyBills()
+            billsRepository.createRecurringAnnualBills()
         }
     }
 
