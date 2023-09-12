@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity(){
 
         }
 
-
         override fun onResume() {
             super.onResume()
             binding.btSubmit.setOnClickListener {
@@ -202,7 +201,9 @@ class MainActivity : AppCompatActivity(){
 //        null assertion operator, making the empty string to not be nullable but just a string
 
         if (userId.isNotBlank()){
-            startActivity(Intent(this, MainActivity::class.java))
+
+            startActivity(Intent(this, HomeActivity::class.java))
+            finish()
         }
     }
 }

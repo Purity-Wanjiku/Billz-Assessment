@@ -8,18 +8,22 @@ import android.os.Looper
 import android.view.GestureDetector
 import android.view.MenuItem
 import android.view.MotionEvent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GestureDetectorCompat
+import androidx.lifecycle.ViewModel
 import com.collections.billz.R
 import com.collections.billz.databinding.ActivityHomeBinding
+import com.collections.billz.viewmodel.BillsViewModel
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
-
+    val billsViewModel : BillsViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        billsViewModel.createUpcomingBills()
     }
 
     override fun onResume() {

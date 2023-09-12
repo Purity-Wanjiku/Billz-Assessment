@@ -1,69 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.AddBillActivity">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="1dp"
-        android:tooltipText="Bills"
+        android:layout_marginEnd="0dp"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        android:tooltipText="Bills"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/spFreq"
         android:layout_width="215dp"
-        android:layout_height="wrap_content"
+        android:layout_height="57dp"
         android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@id/tilAmount"
+        app:layout_constraintHorizontal_bias="0.122"
         app:layout_constraintStart_toEndOf="@+id/tvFreqSpinner"
         app:layout_goneMarginStart="30dp"
-        tools:layout_editor_absoluteY="222dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="218dp" />
 
     <TextView
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="2dp"
         android:text="Due date"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.169"
+        app:layout_constraintHorizontal_bias="0.162"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spFreq"
         tools:ignore="HardcodedText" />
 
     <DatePicker
-        android:id="@+id/dpDueDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="38dp"
+        android:id="@+id/dpduedate"
+        android:layout_width="250dp"
+        android:layout_height="380dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="10dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/btSave"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/tvDate"
-        app:layout_constraintTop_toBottomOf="@id/spFreq" />
+        app:layout_constraintTop_toBottomOf="@id/btSave"
+        app:layout_constraintVertical_bias="0.815" />
 
     <Button
         android:id="@+id/btSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="@string/save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,29 +78,34 @@
         android:id="@+id/tvFreqSpinner"
         android:layout_width="wrap_content"
         android:layout_height="23dp"
-        android:layout_marginStart="55dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="30dp"
         android:text="Frequency"
         app:layout_constraintBottom_toTopOf="@+id/tvDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilAmount"
+        app:layout_constraintVertical_bias="0.179"
         tools:ignore="HardcodedText" />
 
     <Spinner
         android:id="@+id/spDate"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
+        android:layout_width="215dp"
+        android:layout_height="57dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/tvDate"
         app:layout_constraintTop_toBottomOf="@+id/spFreq" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilBillName"
         android:layout_width="409dp"
-        android:layout_marginTop="50dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="1dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toTopOf="@id/tilAmount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -110,17 +120,17 @@
         android:id="@+id/tilAmount"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toTopOf="@id/spFreq"
         app:layout_constraintTop_toBottomOf="@+id/tilBillName"
-        tools:layout_editor_absoluteX="1dp"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="1dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Amount" />
+            android:hint="@string/amount" />
     </com.google.android.material.textfield.TextInputLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

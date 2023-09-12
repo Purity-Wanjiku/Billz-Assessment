@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:hardwareAccelerated="true"
+        android:largeHeap="true"
         android:name=".BillzApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -19,7 +21,6 @@
         <activity
             android:name=".ui.AddBillActivity"
             android:exported="false"
-
             />
         <activity
             android:name=".ui.HomeActivity"
@@ -27,7 +28,7 @@
             />
         <activity
             android:name=".ui.Signup"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">

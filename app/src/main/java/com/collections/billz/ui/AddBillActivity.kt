@@ -1,22 +1,28 @@
 package com.collections.billz.ui
 
 import android.content.Context
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.activity.viewModels
 import com.collections.billz.R
 import com.collections.billz.databinding.ActivityAddBillBinding
 import com.collections.billz.databinding.ActivityHomeBinding
 import com.collections.billz.models.Bill
 import com.collections.billz.utils.Constants
+import com.collections.billz.viewmodel.BillsViewModel
 import com.google.android.material.navigation.NavigationBarView.OnItemSelectedListener
 import java.util.Calendar
 import java.util.UUID
 
 class AddBillActivity : AppCompatActivity() {
     lateinit var binding: ActivityAddBillBinding
+    val billsViewModel: BillsViewModel by viewModels()
+    lateinit var context: Context
+    val bitmapArray = ArrayList<Bitmap>()
     var selectedMonth = 0
     var selectedDate = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,10 +42,14 @@ class AddBillActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         setupFreqSpinner()
-        validateBill()
+
+        binding.btSave.setOnClickListener {
+            validateBill()
+        }
     }
 
-    private fun setupFreqSpinner() {
+
+     fun setupFreqSpinner() {
         val frequencies = arrayOf(Constants.WEEKLY, Constants.MONTHLY, Constants.ANNUAL)
         val freqAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, frequencies)
         freqAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -79,18 +89,18 @@ class AddBillActivity : AppCompatActivity() {
     }
 
     fun showDatePicker() {
-        binding.dpDueDate.show()
+        binding.dpduedate.show()
         binding.spDate.hide()
     }
 
     fun hideDatePicker() {
-        binding.dpDueDate.hide()
+        binding.dpduedate.hide()
         binding.spDate.show()
     }
 
     fun setupDueDate() {
         val calendar = Calendar.getInstance()
-        binding.dpDueDate.init(
+        binding.dpduedate.init(
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
@@ -131,6 +141,8 @@ class AddBillActivity : AppCompatActivity() {
                 dueDate = dueDate,
                 userId = userId.toString()
             )
+            billsViewModel.saveBill(bill)
+            resetForm()
         }
     }
 
