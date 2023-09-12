@@ -1,5 +1,6 @@
 package com.collections.billz.repository
 
+import androidx.lifecycle.LiveData
 import com.collections.billz.BillzApp
 import com.collections.billz.database.BillzDb
 import com.collections.billz.database.UpcomingBillsDao
@@ -35,6 +36,13 @@ class BillzRepository {
             montlyBills.forEach { bill ->
                 val cal = Calendar.getInstance()
                 val month = cal.get(Calendar.MONTH) + 1
+                var monthStr = month.toString()
+                if(month<10){
+                    monthStr = "0$month"
+                }
+                if(bill.dueDate.length<2){
+
+                }
                 val year = cal.get(Calendar.YEAR)
                 val startDate = "1/$month/$year"
                 val endDate = "31/$month/$year"
@@ -50,16 +58,16 @@ class BillzRepository {
                         userId = bill.userId,
                         paid = false
                     )
-                    insertUpcomingBills(newUpcomingBill)
+                    upcomingBillsDao.insertUpcomingBills(newUpcomingBill)
                 }
             }
         }
     }
 
 
-    suspend fun createRecurringWeeklyBills(){
-        withContext(Dispatchers.IO){
-            val weeklyBills= billsDao.getRecurringBills(Constants.WEEKLY)
+    suspend fun createRecurringWeeklyBills() {
+        withContext(Dispatchers.IO) {
+            val weeklyBills = billsDao.getRecurringBills(Constants.WEEKLY)
             val startDate = DateTimeUtils.getFirstDayOfWeek()
             val endDate = DateTimeUtils.getLastDayOfWeek()
             weeklyBills.forEach { bill ->
@@ -79,18 +87,15 @@ class BillzRepository {
                 }
             }
         }
-
+    }
         suspend fun createRecurringAnnualBills(){
             withContext(Dispatchers.IO){
                 val annualBills = billsDao.getRecurringBills(Constants.ANNUAL)
                 val year = DateTimeUtils.getCurrentYear()
                 val startDate = "01//01/$year"
                 val endDate = "31/12/$year"
-
                 annualBills.forEach{ bill ->
                     val existing = upcomingBillsDao.queryExistingBills(bill.billId, startDate, endDate)
-//                    val existing = upcomingBillsDao.queryExistingBills(bill.billId, startDate, endDate)
-
                     if (existing.isEmpty()){
                         val newAnnualBill = UpcomingBill(
                             upcomingBillId = UUID.randomUUID().toString(),
@@ -110,5 +115,9 @@ class BillzRepository {
             }
         }
 
+
+
+    fun getUpcomingBillsByFrequency (frequency: String):LiveData<List<UpcomingBill>>{
+        return  upcomingBillsDao.getUpcomingBillsByFrequency(frequency)
     }
 }

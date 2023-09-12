@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.collections.billz.models.Bill
 import com.collections.billz.models.UpcomingBill
 
-@Database(entities = [Bill :: class, UpcomingBill :: class], version = 3)
+@Database(entities = [Bill :: class, UpcomingBill :: class], version = 4)
 //accessing the database using a singleton database
 abstract class BillzDb:RoomDatabase() {
     abstract fun billsDao(): BillsDao

@@ -117,7 +117,16 @@ class AddBillActivity : AppCompatActivity() {
         val frequency = binding.tvFreqSpinner.text.toString()
         var dueDate = Constants.EMPTY_STRING
         if (frequency == Constants.ANNUAL) {
-            dueDate = "$selectedDate/$selectedMonth"
+            var finalDate = selectedDate.toString()
+            var finalMonth = selectedMonth.toString()
+            if (selectedDate<10){
+                finalDate = "0$selectedDate"
+            }
+
+            if (selectedMonth<10){
+                finalMonth = "0$selectedMonth"
+            }
+            dueDate = "$finalDate/$finalMonth"
         } else {
             dueDate = binding.spDate.selectedItem.toString()
         }
