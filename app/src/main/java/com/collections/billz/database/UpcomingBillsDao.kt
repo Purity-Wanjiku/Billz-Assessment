@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.collections.billz.models.UpcomingBill
 
 @Dao
@@ -21,4 +22,11 @@ interface UpcomingBillsDao {
 
     @Query("SELECT  * FROM UpcomingBills WHERE frequency = :freq AND paid = :paid ORDER BY dueDate")
     fun getUpcomingBillsByFrequency(freq : String, paid: Boolean=false): LiveData<List<UpcomingBill>>
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    fun updateUpcomingBill(upcomingBill: UpcomingBill)
+
+    @Query("SELECT * FROM upcomingbills WHERE paid = :paid ORDER BY dueDate")
+    fun getPaidBills(paid: Boolean = true):LiveData<List<UpcomingBill>>
+
 }

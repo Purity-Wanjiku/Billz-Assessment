@@ -23,7 +23,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        billsViewModel.createUpcomingBills()
+
     }
 
     override fun onResume() {
@@ -32,7 +32,10 @@ class HomeActivity : AppCompatActivity() {
         binding.btAdddBill.setOnClickListener {
             val intent = Intent(this, AddBillActivity::class.java)
             startActivity(intent)
+            setupBottomNav()
+
         }
+        billsViewModel.createUpcomingBills()
     }
     fun setupBottomNav(){
         binding.bnvHome.setOnItemSelectedListener{ menuItem->

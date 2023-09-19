@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.collections.billz.R
 import com.collections.billz.databinding.FragmentSummaryBinding
 import com.collections.billz.databinding.FragmentUpcomingBillBinding
+import com.collections.billz.models.Bill
+import com.collections.billz.models.UpcomingBill
 import com.collections.billz.viewmodel.BillsViewModel
 
 
-class UpcomingBillFragment : Fragment() {
+class UpcomingBillFragment : Fragment(), OnClickBill {
 var binding : FragmentUpcomingBillBinding? = null
         val billsViewModel : BillsViewModel by viewModels()
     override fun onCreateView(
@@ -21,28 +23,29 @@ var binding : FragmentUpcomingBillBinding? = null
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentUpcomingBillBinding.inflate(layoutInflater, container, false)
-        return  inflater.inflate(R.layout.fragment_upcoming_bill, container, false)
         return  binding?.root
     }
 
 
     override fun onResume() {
         super.onResume()
+
         billsViewModel.getWeeklyUpcoming().observe(this){upcomingWeekly->
-            val adapter = UpcomingBillAdapter(upcomingWeekly)
+            val adapter = UpcomingBillAdapter(upcomingWeekly, this)
+            //we call this because the adapter is on the type onClickBill and the Fragment class. The fragment has the function the adapter needs to call (checkPaidBill function)
             binding?.rvWeekly?.layoutManager = LinearLayoutManager(requireContext())
             binding?.rvWeekly?.adapter = adapter
 
         }
 
         billsViewModel.getMonthlyUpcoming().observe(this){upcomingMonthly->
-            val adapter = UpcomingBillAdapter(upcomingMonthly)
-            binding?.rvPaid?.layoutManager = LinearLayoutManager(requireContext())
-            binding?.rvPaid?.adapter = adapter
+            val adapter = UpcomingBillAdapter(upcomingMonthly, this)
+            binding?.rvmontly?.layoutManager = LinearLayoutManager(requireContext())
+            binding?.rvmontly?.adapter = adapter
         }
 
         billsViewModel.getAnnualUpcoming().observe(this){upcomingAnnual->
-            val adapter = UpcomingBillAdapter(upcomingAnnual)
+            val adapter = UpcomingBillAdapter(upcomingAnnual, this)
             binding?.rvAnnual?.layoutManager = LinearLayoutManager(requireContext())
             binding?.rvAnnual?.adapter = adapter
 
@@ -53,6 +56,10 @@ var binding : FragmentUpcomingBillBinding? = null
         binding = null
     }
 
+    override fun checkPaidBill(upcomingBill: UpcomingBill) {
+        upcomingBill.paid = !upcomingBill.paid
+        billsViewModel.updateUpcomingBill(upcomingBill)
+    }
 }
 
 

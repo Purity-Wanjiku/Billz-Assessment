@@ -36,4 +36,14 @@ class BillsViewModel:ViewModel() {
     fun getAnnualUpcoming(): LiveData<List<UpcomingBill>>{
         return  billsRepository.getUpcomingBillsByFrequency(Constants.ANNUAL)
     }
+
+    fun updateUpcomingBill(upcomingBill: UpcomingBill){
+        viewModelScope.launch {
+            billsRepository.updateUpcomingBill(upcomingBill)
+        }
+    }
+
+    fun getPaidBills():LiveData<List<UpcomingBill>>{
+        return billsRepository.getPaidBIlls()
+    }
 }
